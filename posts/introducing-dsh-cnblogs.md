@@ -105,15 +105,22 @@ summary: 一段摘要
 
 ## 怎么用
 
-安装（插件是本地目录，尚未发布到 npm）：
+源码在 GitHub：[Niobium-41-nb/dsh-cnblogs](https://github.com/Niobium-41-nb/dsh-cnblogs)（MIT）。npm 首次发布需要本人过一次浏览器 2FA，之后一条命令即可装进 profile：
 
 ```bash
-# 从插件目录构建
-node node_modules/typescript/bin/tsc -b tsconfig.json
-node node_modules/tsdown/dist/run.mjs
+dsh plugin --profile web add dsh-cnblogs
 ```
 
-然后在 DSH 里 **Settings → Plugins → Add plugin** 选择插件目录，或把目录装进 profile。装好后模型会多出 8 个 `cnblogs_*` 工具。
+在那之前，从源码装：
+
+```bash
+cd dsh-cnblogs
+pnpm install --ignore-scripts
+pnpm build
+dsh plugin --profile web add file:<插件目录>
+```
+
+装好后（新进程生效）模型会多出 8 个 `cnblogs_*` 工具。
 
 令牌在 <https://account.cnblogs.com/settings/tokens> 创建，三选一：
 
@@ -156,4 +163,4 @@ statuses/@4    HTTP 200  array(0)
 
 这个插件的价值不在于「又一个发布工具」，而在于把一件零碎的手工作业变成一句可验证的操作：Agent 发完会告诉你 postId、URL、状态，以及「读回来是不是这份」。
 
-目前它是本机插件，还没发布到 npm 或 GitHub；如果你也想让 Agent 接管这套流程，按上面的步骤把它装进自己的 profile 就行。踩到的那个分类接口的坑已经修好并写进了测试——下次它不会再悄悄返回空列表。
+插件已开源：[github.com/Niobium-41-nb/dsh-cnblogs](https://github.com/Niobium-41-nb/dsh-cnblogs)（MIT，CI 覆盖类型检查、构建与全部测试）。如果你也想让 Agent 接管这套流程，按上面的步骤把它装进自己的 profile 就行。踩到的那个分类接口的坑已经修好并写进了测试——下次它不会再悄悄返回空列表。
