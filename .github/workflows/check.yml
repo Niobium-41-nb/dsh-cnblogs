@@ -40,3 +40,6 @@ jobs:
 
       - name: Test — built bundle
         run: node tests/bundle.smoke.mjs
+
+      - name: Test — MCP protocol
+        run: node tests/mcp.test.mjs

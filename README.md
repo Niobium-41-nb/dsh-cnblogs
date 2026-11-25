@@ -2,10 +2,10 @@
 
 [![check](https://github.com/Niobium-41-nb/dsh-cnblogs/actions/workflows/check.yml/badge.svg)](https://github.com/Niobium-41-nb/dsh-cnblogs/actions/workflows/check.yml) [![npm](https://img.shields.io/npm/v/dsh-cnblogs)](https://www.npmjs.com/package/dsh-cnblogs) [![license](https://img.shields.io/github/license/Niobium-41-nb/dsh-cnblogs)](https://github.com/Niobium-41-nb/dsh-cnblogs/blob/master/LICENSE)
 
-A [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) plugin that lets the agent publish to
+A [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) plugin and local MCP server that let an agent publish to
 **博客园 (cnblogs)** on its own: list and read posts, create or update one from a markdown file, upload the
-images the markdown references, and manage categories, tags and 闪存. It registers eight `cnblogs_*` tools,
-starts no daemon, listens on no port, and keeps the personal access token out of the configuration.
+images the markdown references, and manage categories, tags and 闪存. Both hosts expose the same eight `cnblogs_*` tools,
+start no daemon, listen on no port, and keep the personal access token out of the configuration.
 
 It talks to the same HTTP endpoints as the official [`cnblogs/vscode-cnb`](https://github.com/cnblogs/vscode-cnb)
 extension (`write.cnblogs.com/api` for posts, `api.cnblogs.com/api` for the account and 闪存), so a blog driven
@@ -38,6 +38,43 @@ dsh plugin --profile web add dsh-cnblogs
 `cnblogs_save_post` is the one that replaces the editor workflow: pass a local markdown file and the post id
 recorded for that file is reused, so saving the same file again updates the published post instead of creating
 a duplicate.
+
+## MCP (Qoder and other clients)
+
+Version `0.2.0` and later include the standalone stdio MCP server. Install it globally with
+Node.js 22.19+ or 24+:
+
+```bash
+npm install -g dsh-cnblogs@^0.2.0
+```
+
+In Qoder Desktop, open **Extensions → Connectors → Add Connector → Add custom MCP** and use
+`dsh-cnblogs-mcp` as the command, with no arguments. If Qoder cannot find the command, configure the
+full path to the installed `dsh-cnblogs-mcp` executable.
+
+The equivalent user configuration uses `npx` and does not require a global install:
+
+```json
+{
+  "mcpServers": {
+    "cnblogs": {
+      "command": "npx",
+      "args": ["--yes", "--package", "dsh-cnblogs@^0.2.0", "dsh-cnblogs-mcp"]
+    }
+  }
+}
+```
+
+To run from a source checkout instead, build with `pnpm install --ignore-scripts` and `npm run build`,
+then use `node` as the command and the absolute path to `lib/mcp.js` as its argument.
+
+The server reads `CNBLOGS_PAT` from its own environment or `~/.dsh/dsh-cnblogs/token`. Set
+`DSH_CNBLOGS_STATE_DIR` in the MCP environment to use another state/token directory. The first start creates a
+comment-only token template without overwriting an existing token. After changing the connector, start a new Qoder
+conversation so its tool catalog can load the eight tools. Publishing and deleting still require the user's approval
+in the client.
+
+Run the protocol test with `npm run test:mcp`; it uses an in-memory backend and never contacts cnblogs.
 
 ## Token
 
@@ -124,9 +161,10 @@ pnpm install --ignore-scripts
 node node_modules/typescript/bin/tsc -p tsconfig.json --noEmit
 node node_modules/typescript/bin/tsc -b tsconfig.json
 node node_modules/tsdown/dist/run.mjs
-node --experimental-strip-types tests/unit.test.mjs       # 106 checks
-node --experimental-strip-types tests/plugin.test.mjs     # 66 checks
+node --experimental-strip-types tests/unit.test.mjs       # 118 checks
+node --experimental-strip-types tests/plugin.test.mjs     # 68 checks
 node tests/bundle.smoke.mjs                               # 10 checks, needs a build
+npm run test:mcp                                          # MCP protocol, schemas and tool calls, needs a build
 node --experimental-strip-types tests/live.check.mjs      # read-only live check, needs a token
 ```
 
@@ -163,7 +201,39 @@ verified only against the endpoints read from `vscode-cnb` 1.8.58 and the fake b
 | `cnblogs_taxonomy` | 列分类（含 id 与篇数）、列标签、新建分类、删除分类 |
 | `cnblogs_ings` | 闪存：列表、发布、评论 |
 
-### 安装
+### 安装为 MCP 连接器（Qoder）
+
+`0.2.0` 及以上版本自带独立 stdio MCP 服务。先安装 Node.js 22.19+ 或 24+，再全局安装：
+
+```bash
+npm install -g dsh-cnblogs@^0.2.0
+```
+
+Qoder Desktop 中选择 **扩展 → 连接器 → 添加连接器 → 添加自定义 MCP**，命令填写
+`dsh-cnblogs-mcp`，参数留空。如果 Qoder 的 `PATH` 找不到该命令，把命令改成 npm 全局 bin
+目录下的完整路径（可用 `npm prefix -g` 查询）。
+
+也可以不全局安装，直接使用以下等价配置：
+
+```json
+{
+  "mcpServers": {
+    "cnblogs": {
+      "command": "npx",
+      "args": ["--yes", "--package", "dsh-cnblogs@^0.2.0", "dsh-cnblogs-mcp"]
+    }
+  }
+}
+```
+
+若从源码运行，先执行 `pnpm install --ignore-scripts` 和 `npm run build`，再将命令设为 `node`，
+参数设为 `lib/mcp.js` 的绝对路径。
+
+令牌读取 `CNBLOGS_PAT` 环境变量或 `~/.dsh/dsh-cnblogs/token`；也可在 MCP 环境变量中设置
+`DSH_CNBLOGS_STATE_DIR` 更改状态和令牌目录。首次启动只创建注释模板，不覆盖已有令牌。配置后新建会话，
+即可加载八个 `cnblogs_*` 工具。协议测试：`npm run test:mcp`。
+
+### 安装为 DeepSeek Harness 插件
 
 **从 npm 装（推荐）** —— `dsh.bundle.patch` 会自己把这行 `insert` 挂进 `dsh.profile.bundles`：
 
@@ -177,7 +247,7 @@ DSH="<HARNESS>/resources/runtime/cli/bin/dsh.cmd"
 ```bash
 cd dsh-cnblogs
 pnpm install --ignore-scripts
-pnpm build
+npm run build
 "$DSH" plugin --profile web add file:<PLUGINS>/dsh-cnblogs
 ```
 
@@ -212,7 +282,7 @@ cnblogs_save_post({ file: "E:/blog/我的文章.md" })
 
 ### 关于「已验证」
 
-- **单元 + 装配测试共 172 项**（106 + 66），覆盖 front matter、图片发现与改写、分类解析、令牌来源、
+- **单元 + 装配测试共 186 项**（118 + 68），覆盖 front matter、图片发现与改写、分类解析、令牌来源、
   令牌模板、状态文件、新建/更新、图片转存、删除、失败路径，并逐一校验每个工具的输出结构与其声明一致；
   另有 10 项针对**构建产物** `lib/index.js` 的冒烟检查。
 - **真实接口尚未验证**：那需要一个真实的 PAT。请求的形状来自官方扩展 1.8.58 的源码

@@ -1,7 +1,7 @@
 {
   "name": "dsh-cnblogs",
-  "version": "0.1.0",
-  "description": "Cnblogs (博客园) tools for DeepSeek Harness: list, read, publish and update blog posts, rehost images, manage categories and 闪存",
+  "version": "0.2.0",
+  "description": "Cnblogs (博客园) tools for DeepSeek Harness and MCP clients: list, read, publish and update blog posts, rehost images, manage categories and 闪存",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Niobium-41-nb/dsh-cnblogs.git"
@@ -16,6 +16,9 @@
   },
   "type": "module",
   "main": "lib/index.js",
+  "bin": {
+    "dsh-cnblogs-mcp": "lib/mcp.js"
+  },
   "types": "lib/types/index.d.ts",
   "exports": {
     ".": {
@@ -23,6 +26,10 @@
       "default": "./lib/index.js"
     },
     "./package.json": "./package.json",
+    "./mcp": {
+      "types": "./lib/types/mcp.d.ts",
+      "default": "./lib/mcp.js"
+    },
     "./locale/*.json": "./locale/*.json",
     "./icon": "./icon.svg"
   },
@@ -57,18 +64,24 @@
       "optional": true
     }
   },
-  "devDependencies": {
-    "@deepseek-ai/cordis": "~4.1.0",
+  "dependencies": {
     "@deepseek-ai/dsh-tools": "0.2.2-rc.5",
     "@deepseek-ai/schemastery": "~3.19.0",
+    "@modelcontextprotocol/sdk": "^1.32.2",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@deepseek-ai/cordis": "~4.1.0",
     "@types/node": "^22.20.0",
     "tsdown": "^0.22.2",
     "typescript": "^6.0.3"
   },
   "scripts": {
+    "prepack": "npm run build",
     "typecheck": "node node_modules/typescript/bin/tsc -p tsconfig.json --noEmit",
     "build": "node node_modules/typescript/bin/tsc -b tsconfig.json && node node_modules/tsdown/dist/run.mjs",
     "test": "node --experimental-strip-types tests/unit.test.mjs && node --experimental-strip-types tests/plugin.test.mjs",
+    "test:mcp": "npm run build && node tests/mcp.test.mjs",
     "test:bundle": "node tests/bundle.smoke.mjs"
   },
   "dsh": {

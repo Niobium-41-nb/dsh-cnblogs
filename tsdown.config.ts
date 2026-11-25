@@ -1,9 +1,10 @@
 import { defineConfig } from 'tsdown'
 
-/** One host-only artifact: `lib/index.js`, compiled from `lib/types/index.js`. */
+/** Host plugin and standalone stdio MCP server. */
 export default defineConfig({
   entry: {
     index: 'lib/types/index.js',
+    mcp: 'lib/types/mcp.js',
   },
   outDir: 'lib',
   format: ['esm'],
