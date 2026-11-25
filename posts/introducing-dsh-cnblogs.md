@@ -105,13 +105,13 @@ summary: 一段摘要
 
 ## 怎么用
 
-源码在 GitHub：[Niobium-41-nb/dsh-cnblogs](https://github.com/Niobium-41-nb/dsh-cnblogs)（MIT）。npm 首次发布需要本人过一次浏览器 2FA，之后一条命令即可装进 profile：
+源码在 GitHub：[Niobium-41-nb/dsh-cnblogs](https://github.com/Niobium-41-nb/dsh-cnblogs)（MIT），并已发布到 npm：`dsh-cnblogs@0.1.0`。装进 profile：
 
 ```bash
 dsh plugin --profile web add dsh-cnblogs
 ```
 
-在那之前，从源码装：
+想改代码就从源码装：
 
 ```bash
 cd dsh-cnblogs
@@ -163,4 +163,4 @@ statuses/@4    HTTP 200  array(0)
 
 这个插件的价值不在于「又一个发布工具」，而在于把一件零碎的手工作业变成一句可验证的操作：Agent 发完会告诉你 postId、URL、状态，以及「读回来是不是这份」。
 
-插件已开源：[github.com/Niobium-41-nb/dsh-cnblogs](https://github.com/Niobium-41-nb/dsh-cnblogs)（MIT，CI 覆盖类型检查、构建与全部测试）。如果你也想让 Agent 接管这套流程，按上面的步骤把它装进自己的 profile 就行。踩到的那个分类接口的坑已经修好并写进了测试——下次它不会再悄悄返回空列表。
+插件已开源并发布到 npm：源码在 [github.com/Niobium-41-nb/dsh-cnblogs](https://github.com/Niobium-41-nb/dsh-cnblogs)（MIT），装法是 `dsh plugin --profile web add dsh-cnblogs`。如果你也想让 Agent 接管这套流程，按上面的步骤把它装进自己的 profile 就行。踩到的那个分类接口的坑已经修好并写进了测试——下次它不会再悄悄返回空列表。
