@@ -1,0 +1,7 @@
+{
+  "meta": {
+    "title": "Cnblogs publishing",
+    "description": "Lets the agent write to the user's 博客园 (cnblogs) blog: it lists and reads posts, creates or updates one from a markdown file, uploads local and data-URL images and rewrites the links, and manages categories, tags and 闪存. Eight cnblogs_* tools; no browser half and no daemon.\n\nUsage: create a personal access token at account.cnblogs.com/settings/tokens, then put it in the CNBLOGS_PAT environment variable or in the token file the plugin reports (`<DSH_HOME>/dsh-cnblogs/token`). `cnblogs_account` action `status` verifies it.\n\nLimits: every request acts on the real blog. A new post is a draft unless `status` is `publish`. Deleting a post is permanent. Third-party HTTP images are kept as they are unless `extractWebImages` is on, and the rehosted copy is uploaded to the blog, so only point it at content the user may publish. Turning the plugin off removes all eight tools.",
+    "detail": "docs/DETAIL.md"
+  }
+}

@@ -1,0 +1,42 @@
+name: check
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11.21.0
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 22
+          package-manager-cache: false
+
+      - name: Install
+        run: pnpm install --frozen-lockfile
+
+      - name: Typecheck
+        run: node node_modules/typescript/bin/tsc -p tsconfig.json --noEmit
+
+      # `lib/` is gitignored, so the bundle smoke test needs this build first.
+      - name: Build
+        run: |
+          node node_modules/typescript/bin/tsc -b tsconfig.json
+          node node_modules/tsdown/dist/run.mjs
+
+      - name: Test — pure helpers
+        run: node --experimental-strip-types tests/unit.test.mjs
+
+      - name: Test — tool wiring
+        run: node --experimental-strip-types tests/plugin.test.mjs
+
+      - name: Test — built bundle
+        run: node tests/bundle.smoke.mjs

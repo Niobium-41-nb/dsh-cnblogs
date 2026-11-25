@@ -1,0 +1,88 @@
+{
+  "name": "dsh-cnblogs",
+  "version": "0.1.0",
+  "description": "Cnblogs (博客园) tools for DeepSeek Harness: list, read, publish and update blog posts, rehost images, manage categories and 闪存",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Niobium-41-nb/dsh-cnblogs.git"
+  },
+  "homepage": "https://github.com/Niobium-41-nb/dsh-cnblogs#readme",
+  "bugs": {
+    "url": "https://github.com/Niobium-41-nb/dsh-cnblogs/issues"
+  },
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "type": "module",
+  "main": "lib/index.js",
+  "types": "lib/types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/types/index.d.ts",
+      "default": "./lib/index.js"
+    },
+    "./package.json": "./package.json",
+    "./locale/*.json": "./locale/*.json",
+    "./icon": "./icon.svg"
+  },
+  "files": [
+    "lib",
+    "!lib/**/*.tsbuildinfo",
+    "cordis.patch.yml",
+    "locale",
+    "docs",
+    "scripts",
+    "icon.svg",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": "^22.19.0 || >=24.0.0",
+    "dsh": ">=0.2.1-rc.5 <0.3.0-0"
+  },
+  "peerDependencies": {
+    "@deepseek-ai/cordis": "^4.0.5",
+    "@deepseek-ai/dsh-tools": ">=0.2.1-rc.5 <0.3.0-0",
+    "@deepseek-ai/schemastery": "^3.18.5"
+  },
+  "peerDependenciesMeta": {
+    "@deepseek-ai/cordis": {
+      "optional": true
+    },
+    "@deepseek-ai/dsh-tools": {
+      "optional": true
+    },
+    "@deepseek-ai/schemastery": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@deepseek-ai/cordis": "~4.1.0",
+    "@deepseek-ai/dsh-tools": "0.2.2-rc.5",
+    "@deepseek-ai/schemastery": "~3.19.0",
+    "@types/node": "^22.20.0",
+    "tsdown": "^0.22.2",
+    "typescript": "^6.0.3"
+  },
+  "scripts": {
+    "typecheck": "node node_modules/typescript/bin/tsc -p tsconfig.json --noEmit",
+    "build": "node node_modules/typescript/bin/tsc -b tsconfig.json && node node_modules/tsdown/dist/run.mjs",
+    "test": "node --experimental-strip-types tests/unit.test.mjs && node --experimental-strip-types tests/plugin.test.mjs",
+    "test:bundle": "node tests/bundle.smoke.mjs"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  },
+  "keywords": [
+    "dsh",
+    "deepseek-harness",
+    "cordis",
+    "cnblogs",
+    "博客园",
+    "blog",
+    "publish"
+  ]
+}

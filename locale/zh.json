@@ -1,0 +1,7 @@
+{
+  "meta": {
+    "title": "博客园发布",
+    "description": "让 Agent 直接读写博客园：列博文、读博文、按本地 Markdown 文件新建或更新博文，把本地图片与 Base64 图片转存到博客园图床并改写链接，管理分类、标签与闪存。共 8 个 `cnblogs_*` 工具；没有浏览器半边，也没有常驻进程。\n\n用法：先在 account.cnblogs.com/settings/tokens 创建个人访问令牌，写进环境变量 `CNBLOGS_PAT`，或写进插件报告的那个令牌文件（`<DSH_HOME>/dsh-cnblogs/token`）。用 `cnblogs_account` 的 `status` 动作验证。\n\n限制：所有请求都作用在真实博客上。新博文默认是草稿，除非显式传 `status: publish`。删除博文不可恢复。第三方 HTTP 图片默认原样保留，只有打开 `extractWebImages` 才会转存；转存等于把图片上传到博客，请只对它有权发布的内容使用。关掉插件后这 8 个工具都会消失。",
+    "detail": "docs/DETAIL.zh.md"
+  }
+}

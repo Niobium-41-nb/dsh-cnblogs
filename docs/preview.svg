@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="300" viewBox="0 0 640 300" role="img" aria-label="A markdown document with an image, an upload step, and the resulting post list">
+  <rect x="40" y="48" width="196" height="204" rx="18" fill="#eef3ff" stroke="#b7c9f2" stroke-width="2"/>
+  <rect x="64" y="74" width="120" height="12" rx="6" fill="#2f6fed" opacity="0.75"/>
+  <rect x="64" y="100" width="148" height="10" rx="5" fill="#2f6fed" opacity="0.35"/>
+  <rect x="64" y="122" width="96" height="10" rx="5" fill="#2f6fed" opacity="0.35"/>
+  <rect x="64" y="150" width="96" height="72" rx="10" fill="#dbe6ff" stroke="#2f6fed" stroke-width="2" stroke-dasharray="6 5"/>
+  <path d="M74 214l26-30 18 18 14-14 20 26z" fill="#2f6fed" opacity="0.55"/>
+  <circle cx="140" cy="168" r="7" fill="#f59e0b"/>
+
+  <path d="M252 150h64" stroke="#2f6fed" stroke-width="10" stroke-linecap="round" fill="none"/>
+  <path d="M302 134l20 16-20 16" stroke="#2f6fed" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <circle cx="286" cy="96" r="22" fill="#16a34a"/>
+  <path d="M286 106v-14" stroke="#ffffff" stroke-width="6" stroke-linecap="round" fill="none"/>
+  <path d="M279 99l7-7 7 7" stroke="#ffffff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+
+  <rect x="348" y="48" width="252" height="204" rx="18" fill="#eef3ff" stroke="#b7c9f2" stroke-width="2"/>
+  <rect x="372" y="72" width="132" height="12" rx="6" fill="#2f6fed" opacity="0.75"/>
+  <circle cx="560" cy="80" r="14" fill="#16a34a"/>
+  <path d="M553 80l5 6 10-11" stroke="#ffffff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+
+  <circle cx="386" cy="116" r="10" fill="#dbe6ff" stroke="#2f6fed" stroke-width="2"/>
+  <rect x="406" y="110" width="118" height="9" rx="4.5" fill="#2f6fed" opacity="0.45"/>
+  <rect x="406" y="124" width="72" height="7" rx="3.5" fill="#2f6fed" opacity="0.22"/>
+
+  <circle cx="386" cy="160" r="10" fill="#dbe6ff" stroke="#2f6fed" stroke-width="2"/>
+  <rect x="406" y="154" width="140" height="9" rx="4.5" fill="#2f6fed" opacity="0.45"/>
+  <rect x="406" y="168" width="86" height="7" rx="3.5" fill="#2f6fed" opacity="0.22"/>
+
+  <circle cx="386" cy="204" r="10" fill="#dbe6ff" stroke="#2f6fed" stroke-width="2"/>
+  <rect x="406" y="198" width="104" height="9" rx="4.5" fill="#2f6fed" opacity="0.45"/>
+  <rect x="406" y="212" width="60" height="7" rx="3.5" fill="#2f6fed" opacity="0.22"/>
+</svg>
